@@ -1,0 +1,181 @@
+name: "Sync Dashboard desde SharePoint"
+
+# ============================================================
+# GitHub Actions Workflow: Descarga Excel de SharePoint → CSV → datos.zip
+#
+# CONFIGURACIÓN:
+# 1. Ve a tu repositorio en GitHub → Settings → Secrets and variables → Actions
+# 2. Agrega estos secretos:
+#    - SHAREPOINT_DOWNLOAD_URL: URL de descarga directa del Excel en SharePoint
+#      (ver instrucciones abajo para obtenerla)
+#
+# CÓMO OBTENER LA URL DE DESCARGA:
+# 1. Abre el archivo Excel en SharePoint
+# 2. Click en "Compartir" → "Personas con el vínculo existente pueden ver"
+#    O "Personas de tu organización con el vínculo"
+# 3. Copia el enlace compartido
+# 4. El enlace se verá algo como:
+#    https://gyf.sharepoint.com/:x:/s/SITE/ExxxxxxxxQ?e=xxxxx
+# 5. Modifica el enlace para descarga directa:
+#    https://gyf.sharepoint.com/:x:/s/SITE/ExxxxxxxxQ?download=1
+# 6. Pega esa URL como secreto SHAREPOINT_DOWNLOAD_URL
+#
+# NOTA: Si el enlace expira, deberás actualizarlo en Secrets.
+# ============================================================
+
+on:
+  # Ejecución manual desde GitHub
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Forzar actualización aunque no haya cambios'
+        required: false
+        default: 'false'
+
+  # Ejecución programada (cada 30 minutos en horario laboral Bolivia)
+  schedule:
+    # Lun-Vie, cada 30 min de 8am a 7pm (hora Bolivia = UTC-4, así que 12:00-23:00 UTC)
+    - cron: '0,30 12-23 * * 1-5'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar dependencias Python
+        run: |
+          pip install openpyxl
+
+      - name: Descargar y procesar Excel
+        env:
+          SHAREPOINT_URL: ${{ secrets.SHAREPOINT_DOWNLOAD_URL }}
+        run: |
+          python3 << 'PYEOF'
+          import os
+          import sys
+          import urllib.request
+          import hashlib
+          import csv
+          import zipfile
+          import json
+          from datetime import datetime
+
+          SHEET_NAME = "Backlog Incidentes TI"
+          ZIP_FILE = "datos.zip"
+          HASH_FILE = ".last_sync_hash"
+          FORCE = os.environ.get("FORCE_UPDATE", "false") == "true"
+
+          url = os.environ.get("SHAREPOINT_URL", "")
+          if not url:
+              print("❌ ERROR: SHAREPOINT_DOWNLOAD_URL no configurado en Secrets")
+              print("   Ve a Settings → Secrets → Actions → New repository secret")
+              sys.exit(1)
+
+          # Descargar Excel
+          print(f"📥 Descargando Excel de SharePoint...")
+          try:
+              req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+              with urllib.request.urlopen(req, timeout=60) as response:
+                  excel_data = response.read()
+              print(f"   Descargado: {len(excel_data) / 1024:.1f} KB")
+          except Exception as e:
+              print(f"❌ Error descargando: {e}")
+              print("   Verifica que la URL de SharePoint sea válida y el enlace no haya expirado.")
+              sys.exit(1)
+
+          # Verificar si hay cambios
+          current_hash = hashlib.sha256(excel_data).hexdigest()
+          if not FORCE and os.path.exists(HASH_FILE):
+              with open(HASH_FILE, "r") as f:
+                  last_hash = f.read().strip()
+              if current_hash == last_hash:
+                  print("✅ Sin cambios detectados. Omitiendo actualización.")
+                  # Escribir output para skip
+                  with open(os.environ.get("GITHUB_OUTPUT", "/dev/null"), "a") as f:
+                      f.write("changed=false\n")
+                  sys.exit(0)
+
+          print(f"🔄 Cambios detectados (hash: {current_hash[:12]}...)")
+
+          # Guardar Excel temporal
+          excel_path = "/tmp/backlog.xlsx"
+          with open(excel_path, "wb") as f:
+              f.write(excel_data)
+
+          # Leer pestaña específica con openpyxl
+          from openpyxl import load_workbook
+          print(f"📊 Leyendo pestaña '{SHEET_NAME}'...")
+          wb = load_workbook(excel_path, read_only=True, data_only=True)
+
+          if SHEET_NAME not in wb.sheetnames:
+              print(f"❌ Pestaña '{SHEET_NAME}' no encontrada.")
+              print(f"   Pestañas disponibles: {wb.sheetnames}")
+              sys.exit(1)
+
+          ws = wb[SHEET_NAME]
+          rows = list(ws.iter_rows(values_only=True))
+          wb.close()
+
+          if len(rows) < 2:
+              print("❌ La pestaña está vacía o solo tiene encabezados.")
+              sys.exit(1)
+
+          headers = [str(h) if h else f"Col_{i}" for i, h in enumerate(rows[0])]
+          data_rows = rows[1:]
+
+          # Filtrar filas completamente vacías
+          data_rows = [r for r in data_rows if any(c is not None and str(c).strip() for c in r)]
+          print(f"   Registros: {len(data_rows)}")
+
+          # Generar CSV
+          csv_filename = f"EST_VPT_BackLog_Incidentes_BU_V001_20250812({SHEET_NAME}).csv"
+          csv_path = f"/tmp/{csv_filename}"
+          with open(csv_path, "w", newline="", encoding="utf-8-sig") as f:
+              writer = csv.writer(f)
+              writer.writerow(headers)
+              for row in data_rows:
+                  writer.writerow([str(c) if c is not None else "" for c in row])
+          print(f"   CSV generado: {csv_filename}")
+
+          # Crear ZIP
+          with zipfile.ZipFile(ZIP_FILE, "w", zipfile.ZIP_DEFLATED) as zf:
+              zf.write(csv_path, csv_filename)
+          zip_size = os.path.getsize(ZIP_FILE)
+          print(f"   ZIP creado: {zip_size / 1024:.1f} KB")
+
+          # Guardar hash
+          with open(HASH_FILE, "w") as f:
+              f.write(current_hash)
+
+          # Output para siguiente step
+          with open(os.environ.get("GITHUB_OUTPUT", "/dev/null"), "a") as f:
+              f.write(f"changed=true\n")
+              f.write(f"records={len(data_rows)}\n")
+              f.write(f"csv_name={csv_filename}\n")
+
+          print("✅ Procesamiento completado.")
+          PYEOF
+
+      - name: Commit y push a GitHub
+        if: success()
+        run: |
+          git config user.name "Dashboard Bot"
+          git config user.email "bot@dashboard-incidentes.local"
+
+          # Verificar si hay cambios
+          if git diff --quiet datos.zip .last_sync_hash 2>/dev/null; then
+            echo "Sin cambios para commit."
+            exit 0
+          fi
+
+          TIMESTAMP=$(TZ="America/La_Paz" date "+%d/%m/%Y %H:%M")
+          git add datos.zip .last_sync_hash
+          git commit -m "📊 Auto-sync $TIMESTAMP"
+          git push
+
+          echo "✅ Datos publicados a GitHub. El dashboard se actualizará automáticamente."

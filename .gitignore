@@ -1,0 +1,58 @@
+# ——————————————————————————————————————————————
+# .gitignore — Dashboard Backlog Incidentes TI
+# Banco Unión S.A. — Vicepresidencia de Tecnología
+# ——————————————————————————————————————————————
+
+# ==================== SEGURIDAD ====================
+# NUNCA subir tokens o credenciales
+.github_pat
+*.pat
+.env
+.env.*
+
+# ==================== SINCRONIZACIÓN ====================
+# Archivos generados por sync_dashboard.ps1
+sync_dashboard.log
+.last_excel_hash
+.last_sync_hash
+
+# ==================== SISTEMA OPERATIVO ====================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# ==================== EDITORES / IDEs ====================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# ==================== TEMPORALES ====================
+*.tmp
+*.temp
+*.bak
+*.orig
+*.log
+!CHANGELOG.md
+
+# ==================== ARCHIVOS EXCEL ORIGINALES ====================
+# No subir el Excel original (vive en SharePoint)
+EST_VPT_BackLog_Incidentes_BU_V001*.xlsx
+*.xlsx
+*.xls
+
+# ==================== NODE (si se usa servidor local) ====================
+node_modules/
+package-lock.json

@@ -1,0 +1,16 @@
+# Dashboard Backlog Incidentes TI — Banco Unión S.A.
+# Restringir indexación por motores de búsqueda
+# Este es un sistema de uso interno corporativo
+
+User-agent: *
+Disallow: /datos.zip
+Disallow: /sync_dashboard.ps1
+Disallow: /.github/
+Disallow: /docs/
+
+# Permitir solo la página principal del dashboard
+Allow: /index.html
+Allow: /LOGO.png
+
+# Sitemap (no aplica para dashboards internos)
+# Sitemap: https://johnja1989.github.io/dashboard_incidentes_ti_nivel2_BU_V2/sitemap.xml
