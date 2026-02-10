@@ -1,4 +1,4 @@
-﻿# ðŸš€ GuÃ­a Completa de Despliegue en GitHub Pages
+﻿# 🚀 Guía Completa de Despliegue en GitHub Pages
 
 ## Paso 1: Crear Cuenta en GitHub (si no tienes)
 
@@ -11,16 +11,16 @@
 
 ## Paso 2: Crear el Repositorio
 
-### OpciÃ³n A: Desde la Web (MÃ¡s FÃ¡cil)
+### Opción A: Desde la Web (Más Fácil)
 
-1. **Inicia sesiÃ³n** en GitHub
-2. Click en el **botÃ³n "+"** (arriba derecha) > "New repository"
+1. **Inicia sesión** en GitHub
+2. Click en el **botón "+"** (arriba derecha) > "New repository"
 3. **Completa el formulario**:
    ```
    Repository name: dashboard-incidentes-ti
-   Description: Dashboard de gestiÃ³n de incidentes TI
-   âœ… Public (o Private si tienes GitHub Pro)
-   âœ… Add a README file (desmarcar, lo subiremos nosotros)
+   Description: Dashboard de gestión de incidentes TI
+   ✅ Public (o Private si tienes GitHub Pro)
+   ✅ Add a README file (desmarcar, lo subiremos nosotros)
    ```
 4. Click en **"Create repository"**
 
@@ -28,21 +28,21 @@
 
 ## Paso 3: Subir los Archivos
 
-### MÃ©todo 1: Arrastra y Suelta (MÃ¡s FÃ¡cil)
+### Método 1: Arrastra y Suelta (Más Fácil)
 
-1. En tu repositorio nuevo, verÃ¡s una pantalla vacÃ­a
+1. En tu repositorio nuevo, verás una pantalla vacía
 2. Click en **"uploading an existing file"**
 3. **Arrastra los archivos principales** desde tu computadora:
    ```
-   âœ… index.html        (Dashboard principal - single-file app)
-   âœ… LOGO.png           (Logo corporativo)
-   âœ… robots.txt         (Control de indexaciÃ³n)
-   âœ… README.md          (DocumentaciÃ³n)
-   âœ… CHANGELOG.md       (Historial de versiones)
-   âœ… SECURITY.md        (PolÃ­tica de seguridad)
-   âœ… LICENSE            (Licencia de uso)
-   âœ… .gitignore         (Exclusiones de Git)
-   âœ… sync_dashboard.ps1 (Script de sincronizaciÃ³n)
+   ✅ index.html        (Dashboard principal - single-file app)
+   ✅ LOGO.png           (Logo corporativo)
+   ✅ robots.txt         (Control de indexación)
+   ✅ README.md          (Documentación)
+   ✅ CHANGELOG.md       (Historial de versiones)
+   ✅ SECURITY.md        (Política de seguridad)
+   ✅ LICENSE            (Licencia de uso)
+   ✅ .gitignore         (Exclusiones de Git)
+   ✅ sync_dashboard.ps1 (Script de sincronización)
    ```
 4. En "Commit changes":
    ```
@@ -51,7 +51,7 @@
 5. Click en **"Commit changes"**
 6. Repite para subir la carpeta `docs/` y `.github/workflows/`
 
-### MÃ©todo 2: Subir Archivo por Archivo
+### Método 2: Subir Archivo por Archivo
 
 1. En tu repositorio, click en **"Add file"** > **"Upload files"**
 2. Selecciona o arrastra cada archivo
@@ -61,16 +61,16 @@
 
 ## Paso 4: Activar GitHub Pages
 
-> **Nota**: Este proyecto utiliza una arquitectura single-file. Todo el cÃ³digo
-> (HTML, CSS, JavaScript) estÃ¡ contenido en `index.html`. No es necesario
+> **Nota**: Este proyecto utiliza una arquitectura single-file. Todo el código
+> (HTML, CSS, JavaScript) está contenido en `index.html`. No es necesario
 > renombrar ni duplicar archivos.
 
 ---
 
 ## Paso 5: Activar GitHub Pages
 
-1. En tu repositorio, click en **"Settings"** (pestaÃ±a arriba)
-2. En el menÃº izquierdo, click en **"Pages"**
+1. En tu repositorio, click en **"Settings"** (pestaña arriba)
+2. En el menú izquierdo, click en **"Pages"**
 3. En **"Source"**:
    ```
    Branch: main (o master)
@@ -78,10 +78,10 @@
    ```
 4. Click en **"Save"**
 5. **Espera 1-2 minutos**
-6. Refresca la pÃ¡gina
-7. VerÃ¡s un mensaje verde:
+6. Refresca la página
+7. Verás un mensaje verde:
    ```
-   âœ… Your site is published at https://tu-usuario.github.io/dashboard-incidentes-ti/
+   ✅ Your site is published at https://tu-usuario.github.io/dashboard-incidentes-ti/
    ```
 
 ---
@@ -89,13 +89,13 @@
 ## Paso 6: Verificar que Funciona
 
 1. **Click en el link** que aparece en GitHub Pages
-2. DeberÃ­as ver tu dashboard
+2. Deberías ver tu dashboard
 3. **Prueba cargar un CSV** para verificar
 
 ### Si no carga:
 
 - Verifica que el archivo se llame exactamente `index.html`
-- Espera 2-3 minutos mÃ¡s (GitHub Pages puede tardar)
+- Espera 2-3 minutos más (GitHub Pages puede tardar)
 - Refresca con Ctrl+F5
 - Revisa la consola del navegador (F12)
 
@@ -106,10 +106,10 @@
 ### Cuando necesites cambiar algo:
 
 1. En GitHub, ve al archivo que quieres editar
-2. Click en el **Ã­cono de lÃ¡piz** (Edit)
+2. Click en el **ícono de lápiz** (Edit)
 3. Haz los cambios
 4. Scroll abajo, click en **"Commit changes"**
-5. **Espera 1-2 minutos** y el sitio se actualizarÃ¡ automÃ¡ticamente
+5. **Espera 1-2 minutos** y el sitio se actualizará automáticamente
 
 ### Para actualizar datos.csv (uso diario):
 
@@ -121,7 +121,7 @@
 
 ---
 
-## ðŸ”’ ConfiguraciÃ³n de Privacidad
+## 🔒 Configuración de Privacidad
 
 ### Hacer el Repositorio Privado
 
@@ -133,50 +133,50 @@ Si tienes **GitHub Pro** o **GitHub Enterprise**:
 4. Selecciona **"Make private"**
 5. Confirma
 
-> âš ï¸ **Nota**: GitHub Pages en repos privados solo estÃ¡ disponible con GitHub Pro ($4/mes)
+> ⚠️ **Nota**: GitHub Pages en repos privados solo está disponible con GitHub Pro ($4/mes)
 
-### Alternativa: Repositorio PÃºblico Pero Ofuscado
+### Alternativa: Repositorio Público Pero Ofuscado
 
 Si no tienes GitHub Pro:
 
-1. MantÃ©n el repo pÃºblico
+1. Mantén el repo público
 2. Usa un nombre de repositorio no obvio (ej: `rpt-stat-v2`)
-3. No incluyas informaciÃ³n sensible en el cÃ³digo
+3. No incluyas información sensible en el código
 4. Los datos solo existen cuando el usuario carga el CSV
 
 ---
 
-## ðŸ“Š Estructura Final del Repositorio
+## 📊 Estructura Final del Repositorio
 
-Tu repositorio deberÃ­a verse asÃ­:
+Tu repositorio debería verse así:
 
 ```
 dashboard_incidentes_ti_nivel2_BU_V2/
-â”œâ”€â”€ index.html              âœ… Dashboard principal (single-file app)
-â”œâ”€â”€ LOGO.png                âœ… Logo corporativo
-â”œâ”€â”€ datos.zip               âœ… Datos CSV comprimidos (auto-generado)
-â”œâ”€â”€ robots.txt              âœ… Control de indexaciÃ³n
-â”œâ”€â”€ sync_dashboard.ps1      âœ… Script de sincronizaciÃ³n automÃ¡tica
-â”œâ”€â”€ .gitignore              âœ… Exclusiones de Git
-â”œâ”€â”€ README.md               âœ… DocumentaciÃ³n principal
-â”œâ”€â”€ CHANGELOG.md            âœ… Historial de versiones
-â”œâ”€â”€ SECURITY.md             âœ… PolÃ­tica de seguridad
-â”œâ”€â”€ LICENSE                 âœ… Licencia de uso interno
-â”œâ”€â”€ .github/workflows/      âœ… GitHub Actions
-â”‚   â””â”€â”€ sync-sharepoint.yml
-â””â”€â”€ docs/                   âœ… DocumentaciÃ³n detallada
-    â”œâ”€â”€ GUIA_DESPLIEGUE.md
-    â”œâ”€â”€ GUIA_SINCRONIZACION.md
-    â”œâ”€â”€ REPORTES_EJECUTIVOS.md
-    â”œâ”€â”€ CHECKLIST_ENTREGA.md
-    â””â”€â”€ DICCIONARIO_DATOS.md
+├── index.html              ✅ Dashboard principal (single-file app)
+├── LOGO.png                ✅ Logo corporativo
+├── datos.zip               ✅ Datos CSV comprimidos (auto-generado)
+├── robots.txt              ✅ Control de indexación
+├── sync_dashboard.ps1      ✅ Script de sincronización automática
+├── .gitignore              ✅ Exclusiones de Git
+├── README.md               ✅ Documentación principal
+├── CHANGELOG.md            ✅ Historial de versiones
+├── SECURITY.md             ✅ Política de seguridad
+├── LICENSE                 ✅ Licencia de uso interno
+├── .github/workflows/      ✅ GitHub Actions
+│   └── sync-sharepoint.yml
+└── docs/                   ✅ Documentación detallada
+    ├── GUIA_DESPLIEGUE.md
+    ├── GUIA_SINCRONIZACION.md
+    ├── REPORTES_EJECUTIVOS.md
+    ├── CHECKLIST_ENTREGA.md
+    └── DICCIONARIO_DATOS.md
 ```
 
 ---
 
-## ðŸŽ¯ URL Final
+## 🎯 URL Final
 
-Tu dashboard estarÃ¡ disponible en:
+Tu dashboard estará disponible en:
 
 ```
 https://johnja1989.github.io/dashboard_incidentes_ti_nivel2_BU_V2/
@@ -184,82 +184,82 @@ https://johnja1989.github.io/dashboard_incidentes_ti_nivel2_BU_V2/
 
 ---
 
-## ðŸ”„ ActualizaciÃ³n de Datos
+## 🔄 Actualización de Datos
 
-### MÃ©todo Recomendado: SincronizaciÃ³n AutomÃ¡tica
+### Método Recomendado: Sincronización Automática
 
 El proyecto incluye un script PowerShell que automatiza todo el proceso:
 
 ```powershell
-# ConfiguraciÃ³n inicial (una sola vez)
+# Configuración inicial (una sola vez)
 Install-Module ImportExcel -Scope CurrentUser
 [Environment]::SetEnvironmentVariable("DASHBOARD_GITHUB_PAT", "ghp_TU_TOKEN", "User")
 
-# Instalar tarea automÃ¡tica cada 30 minutos
+# Instalar tarea automática cada 30 minutos
 .\sync_dashboard.ps1 -InstallScheduledTask -IntervalMinutes 30
 ```
 
 > Para detalles completos, ver [GUIA_SINCRONIZACION.md](GUIA_SINCRONIZACION.md)
 
-### MÃ©todo Manual (alternativo)
+### Método Manual (alternativo)
 
 1. Los usuarios abren el dashboard
-2. Click en "ðŸ“‚ Cargar CSV"
+2. Click en "📂 Cargar CSV"
 3. Seleccionan el archivo CSV exportado desde el Excel
-4. Los datos se actualizan automÃ¡ticamente
-5. Click en "ðŸš€ Publicar a GitHub" para compartir
+4. Los datos se actualizan automáticamente
+5. Click en "🚀 Publicar a GitHub" para compartir
 
 ---
 
-## ðŸ› SoluciÃ³n de Problemas Comunes
+## 🐛 Solución de Problemas Comunes
 
 ### "404 - There isn't a GitHub Pages site here"
 
-âœ… **SoluciÃ³n:**
-- Verifica que GitHub Pages estÃ© activado en Settings > Pages
-- AsegÃºrate de que el archivo se llame `index.html`
-- Espera 2-3 minutos despuÃ©s de activar
+✅ **Solución:**
+- Verifica que GitHub Pages esté activado en Settings > Pages
+- Asegúrate de que el archivo se llame `index.html`
+- Espera 2-3 minutos después de activar
 
-### "El sitio carga pero estÃ¡ en blanco"
+### "El sitio carga pero está en blanco"
 
-âœ… **SoluciÃ³n:**
+✅ **Solución:**
 - Abre la consola del navegador (F12)
 - Busca errores en rojo
-- Verifica que `index.html` estÃ© en la raÃ­z del repositorio
+- Verifica que `index.html` esté en la raíz del repositorio
 - Verifica que las CDN de Chart.js, PapaParse, etc. cargan correctamente
 - Refresca con Ctrl+F5
 
 ### "Los acentos se ven mal"
 
-âœ… **SoluciÃ³n:**
-- El CSV debe estar en codificaciÃ³n Windows-1252
+✅ **Solución:**
+- El CSV debe estar en codificación Windows-1252
 - Al exportar desde Excel, usa "CSV (delimitado por comas)"
-- El dashboard lo maneja automÃ¡ticamente
+- El dashboard lo maneja automáticamente
 
 ---
 
-## ðŸ“ž Contacto y Soporte
+## 📞 Contacto y Soporte
 
-**Desarrollador:** John Jairo Vargas GonzÃ¡lez  
+**Desarrollador:** John Jairo Vargas González  
 **Email:** john.vargas@bancounion.com
 
 ---
 
-## âœ… Checklist Final
+## ✅ Checklist Final
 
 Antes de entregar, verifica:
 
 - [ ] Repositorio creado en GitHub
-- [ ] `index.html` y `LOGO.png` subidos a la raÃ­z
+- [ ] `index.html` y `LOGO.png` subidos a la raíz
 - [ ] `.gitignore` activo (no se suben tokens ni logs)
 - [ ] GitHub Pages activado (Settings > Pages > main > root)
 - [ ] URL funcionando
 - [ ] Dashboard carga correctamente
 - [ ] Se puede cargar un CSV de prueba
-- [ ] Los grÃ¡ficos se generan bien
+- [ ] Los gráficos se generan bien
 - [ ] El PDF funciona
 - [ ] README.md tiene la URL correcta
 
 ---
 
-**Â¡Listo para producciÃ³n!** ðŸŽ‰
+**¡Listo para producción!** 🎉
