@@ -1,4 +1,4 @@
-###############################################################################
+﻿###############################################################################
 # sync_dashboard.ps1 — Sincronización Automática: SharePoint Excel → GitHub
 # Dashboard Backlog Incidentes TI — Banco Unión S.A.
 #
@@ -297,7 +297,8 @@ function Invoke-Sync {
 
         # Exportar a CSV con codificación compatible
         $data | Export-Csv -Path $csvPath -NoTypeInformation -Encoding Default
-        Write-Log "CSV generado: $csvFileName ($((Get-Item $csvPath).Length / 1KB) KB)"
+        $csvSizeKB = [Math]::Round((Get-Item $csvPath).Length / 1KB, 1)
+        Write-Log "CSV generado: $csvFileName - ${csvSizeKB} KB"
 
         # --- 6. Crear ZIP ---
         $zipPath = Join-Path $tempDir "datos.zip"
@@ -312,10 +313,11 @@ function Invoke-Sync {
         $zipArchive.Dispose()
 
         $zipSize = (Get-Item $zipPath).Length
-        Write-Log "ZIP creado: datos.zip ($([Math]::Round($zipSize / 1KB, 1)) KB)"
+        $zipSizeKB = [Math]::Round($zipSize / 1KB, 1)
+        Write-Log "ZIP creado: datos.zip - ${zipSizeKB} KB"
 
         # --- 7. Subir a GitHub ---
-        Write-Log "Subiendo a GitHub ($GitHubUser/$GitHubRepo)..."
+        Write-Log "Subiendo a GitHub ${GitHubUser}/${GitHubRepo}..."
 
         $apiUrl = "https://api.github.com/repos/$GitHubUser/$GitHubRepo/contents/$GitHubFile"
         $authHeaders = @{
@@ -341,8 +343,9 @@ function Invoke-Sync {
 
         # Construir body
         $timestamp = Get-Date -Format "d/M/yyyy, h:mm:ss tt"
+        $recordCount = $data.Count
         $body = @{
-            message = "Sync auto - $timestamp ($($data.Count) registros)"
+            message = "Sync auto - $timestamp - $recordCount registros"
             content = $zipBase64
             branch  = $GitHubBranch
         }
